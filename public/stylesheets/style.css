@@ -1,0 +1,15 @@
+body {
+  padding: 50px;
+}
+
+a {
+  color: #00B7FF;
+}
+
+textarea {
+  position: fixed;
+  left: 0px; top: 10px;
+  width: calc(100vw - 20px); /* vw - view width */
+  height: calc(100vh - 20px); /* vh - view height */
+  resize: none;
+}
