@@ -1,6 +1,10 @@
 doctype html
 html
   head 
+    link(rel='stylesheet' href='/stylesheets/style.css' type='text/css')
   body
     block content
-    textarea
+    button(id='download') Download file
+    button(id='share') Share
+    textarea(id='notepad' name='notepad')
+  script(src='/javascripts/client.js')
