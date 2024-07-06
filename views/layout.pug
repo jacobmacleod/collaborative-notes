@@ -5,6 +5,7 @@ html
   body
     block content
     button(id='download') Download file
-    button(id='share') Share
+    button(id='togetherjs' onclick='TogetherJS(this); return false;') Start TogetherJS 
     textarea(id='notepad' name='notepad')
   script(src='/javascripts/client.js')
+  script(src='https://togetherjs.com/togetherjs-min.js')
