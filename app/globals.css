@@ -1,9 +1,11 @@
-body {
-  padding: 50px;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-a {
-  color: #00B7FF;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
 button#download {
@@ -15,18 +17,9 @@ button#download {
   cursor: pointer;
   position: fixed;
   left: 10px; top: 10px;
+  outline: auto;
 }
 
-button#togetherjs {
-  background-color: white;
-  color: black;
-  font-size: 20px;
-  height: 50px;
-  width: 150px;
-  cursor: pointer;
-  position: fixed;
-  left: 160px; top: 10px;
-}
 
 textarea {
   position: fixed;
@@ -34,4 +27,5 @@ textarea {
   width: calc(100vw - 20px); /* vw - view width */
   height: calc(100vh - 80px); /* vh - view height */
   resize: none;
+  outline: auto;
 }
