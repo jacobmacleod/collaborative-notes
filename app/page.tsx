@@ -1,6 +1,9 @@
 'use client';
 
 import Image from "next/image";
+import { Room } from "./Room";
+import { CollaborativeApp } from "./CollaborativeApp";
+
 
 export default function Home() {
 
@@ -32,7 +35,9 @@ export default function Home() {
       </head>
       <body>
         <button id="download" onClick={downloadFile}>Download file</button>
-        <textarea id="notepad" name="notepad"></textarea>
+        <Room>
+          <CollaborativeApp />
+        </Room>
         <script type="text/javascript">
         </script>
       </body>
