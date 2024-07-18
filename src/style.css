@@ -1,22 +1,3 @@
 #app {
   text-align: center;
 }
-
-#notepad {
-  position: fixed;
-  left: 10px; top: 70px;
-  width: calc(100vw - 20px); /* vw - view width */
-  height: calc(100vh - 80px); /* vh - view height */
-  resize: none;
-}
-
-#download {
-  background-color: white;
-  color: black;
-  font-size: 20px;
-  height: 50px;
-  width: 150px;
-  cursor: pointer;
-  position: fixed;
-  left: 10px; top: 10px;
-}

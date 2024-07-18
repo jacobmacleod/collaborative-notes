@@ -1,35 +1,45 @@
 import './style.css'
 import * as Y from 'yjs'
-import { WebsocketProvider } from 'y-websocket'
-import { TextAreaBinding } from 'y-textarea'
+import { WebrtcProvider } from 'y-webrtc'
+import Quill from 'quill'
+import QuillCursors from 'quill-cursors'
+import { QuillBinding } from 'y-quill'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <h1>Collaborative Notes</h1>
-  <textarea id="notepad"></textarea>
-  <button id="download">Download file</button>
-`
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+  
+  `
+const notepad = document.querySelector('#notepad')
+if (!notepad) throw new Error('missing Text area?')
+
+const quill = new Quill(<HTMLElement>notepad, {
+  modules: {
+    cursors: true,
+    toolbar: [
+      // adding some basic Quill content features
+      [{ header: [1, 2, false] }],
+      ['bold', 'italic', 'underline'],
+      ['image', 'code-block']
+    ],
+    history: {
+      // Local undo shouldn't undo changes
+      // from remote users
+      userOnly: true
+    }
+  },
+  placeholder: 'Start collaborating...',
+  theme: 'snow' // 'bubble' is also great
+})
 
 const doc = new Y.Doc()
-const wsProvider = new WebsocketProvider(
-  `ws://${window.location.hostname}:1234`,
-  'my-roomname',
-  doc
-)
 
-wsProvider.on('status', (event: any) => {
-  console.log(event.status) // logs "connected" or "disconnected"
-})
+const provider = new WebrtcProvider('collaborative-notes-room', doc)
+const yText = doc.getText('quill')
 
-const textArea = document.querySelector<HTMLTextAreaElement>('#notepad')
-if (!textArea) throw new Error('missing Text area?')
+const binding = new QuillBinding(yText, quill)
 
-const yText = doc.getText('notepad')
-
-//@ts-ignore
-let areaBinding = new TextAreaBinding(yText, textArea, {
-  awareness: wsProvider.awareness,
-})
-
+/*
 var downloadButton = document.getElementById('download');
 downloadButton?.addEventListener('click', function() {
     var filename = window.prompt("Please enter the file name: ", "filename.txt");
@@ -53,3 +63,4 @@ downloadButton?.addEventListener('click', function() {
       document.body.removeChild(element);
     }
 });
+*/
