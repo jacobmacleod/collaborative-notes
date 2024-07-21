@@ -16,6 +16,7 @@
     "morgan": "~1.9.1",
     "process": "^0.11.10",
     "quill": "^2.0.2",
+    "quill-cursors": "^4.0.3",
     "stream": "^0.0.3",
     "stream-browserify": "^3.0.0",
     "watson-speech": "^0.41.0",

@@ -29,18 +29,17 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-// Chrome requires https to access the user's microphone unless it's a localhost url so
-// this sets up a basic server on port 3001 using an included self-signed certificate
-// note: this is not suitable for production use
-// however bluemix automatically adds https support at https://<myapp>.mybluemix.net
+const certDir = `/etc/letsencrypt/live`;
+const domain = `collaborative-notes.com`;
+
 if (!process.env.VCAP_SERVICES) {
   const fs = require('fs');
   const https = require('https');
   const HTTPS_PORT = 3001;
 
   const options = {
-    key: fs.readFileSync(__dirname + '/../keys/localhost.pem'),
-    cert: fs.readFileSync(__dirname + '/../keys/localhost.cert')
+    key: fs.readFileSync(`${certDir}/${domain}/privkey.pem`),
+    cert: fs.readFileSync(`${certDir}/${domain}/fullchain.pem`)
   };
   https.createServer(options, app).listen(HTTPS_PORT, function() {
     console.log('Secure server live at https://localhost:%s/', HTTPS_PORT);

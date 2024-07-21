@@ -1,34 +1,36 @@
 import * as Y from 'yjs'
 import { WebrtcProvider } from 'y-webrtc'
 import Quill from 'quill'
+import QuillCursors from 'quill-cursors'
 import { QuillBinding } from 'y-quill'
 import { SpeechToText } from 'watson-speech'
 
 const notepad = document.querySelector('#notepad');
 if (!notepad) throw new Error('missing Text area?');
 
+Quill.register('modules/cursors', QuillCursors);
+
 const quill = new Quill(notepad, {
   modules: {
     cursors: true,
     toolbar: [
-      // adding some basic Quill content features
       [{ header: [1, 2, false] }],
       ['bold', 'italic', 'underline'],
       ['image', 'code-block']
     ],
     history: {
-      // Local undo shouldn't undo changes
-      // from remote users
       userOnly: true
     }
   },
   placeholder: 'Start collaborating...',
-  theme: 'snow' // 'bubble' is also great
+  theme: 'snow' 
 });
 
 const doc = new Y.Doc();
 
-const provider = new WebrtcProvider('collaborative-notes-room', doc);
+const provider = new WebrtcProvider('collaborative-notes-room', doc, {
+  signaling: ['https://collaborative-notes-server.xyz']
+});
 const yText = doc.getText('quill');
 
 const binding = new QuillBinding(yText, quill);
