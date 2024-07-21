@@ -146,4 +146,6 @@ dist
 # Watson
 keys/
 .env
+
+# Webpack output
 public/javascripts/bundle.*
