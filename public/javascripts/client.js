@@ -27,31 +27,7 @@ const quill = new Quill(notepad, {
   theme: 'snow' 
 });
 
-const doc = new Y.Doc();
 
-const provider = new WebrtcProvider('collaborative-notes-room', doc, {
-  signaling: ['https://collaborative-notes-server.xyz']
-});
-
-const awareness = provider.awareness;
-
-awareness.on('change', changes => {
-  console.log(Array.from(awareness.getStates().values()));
-});
-
-const rand = Math.floor(Math.random() * 7);
-const color = ['#000000', '#FF0000', '#FFFF00', '#00FF00',
-  '#00FFFF', '#0000FF', '#FF00FF'];
-  
-awareness.setLocalStateField('user', {
-  name: DOUsername.generate(20),
-  color: color[rand]
-});
-  
-
-const yText = doc.getText('quill');
-
-const binding = new QuillBinding(yText, quill, awareness);
 
 
 document.querySelector('#download').onclick = function ()  {
@@ -102,4 +78,37 @@ document.querySelector('#transcribe').onclick = function () {
     }).catch(function(error) {
       console.log(error);
     });
+};
+
+document.querySelector('#collaborate').onclick = function () {
+
+  var roomName = window.prompt("Please enter the room name: ");
+
+  if (roomName != null) {
+    const doc = new Y.Doc();
+
+    const provider = new WebrtcProvider(roomName, doc, {
+      signaling: ['https://collaborative-notes-server.xyz']
+    });
+
+    const awareness = provider.awareness;
+
+    awareness.on('change', changes => {
+      console.log(Array.from(awareness.getStates().values()));
+    });
+
+    const rand = Math.floor(Math.random() * 7);
+    const color = ['#000000', '#FF0000', '#FFFF00', '#00FF00',
+      '#00FFFF', '#0000FF', '#FF00FF'];
+  
+    awareness.setLocalStateField('user', {
+      name: DOUsername.generate(20),
+      color: color[rand]
+    });
+  
+
+    const yText = doc.getText('quill');
+
+    const binding = new QuillBinding(yText, quill, awareness);
+  }
 };
