@@ -64,16 +64,13 @@ document.querySelector('#transcribe').onclick = function () {
         outputElement: '#output' // CSS selector or DOM Element
       }));
 
-      stream.on('data', function(data) {
-        if(data.results[0] && data.results[0].final) {
-          stream.stop();
-          console.log('stop listening.');
-        }
-      });
-
       stream.on('error', function(err) {
         console.log(err);
       });
+
+      document.querySelector('#stop').onclick = function() {
+        stream.stop();
+      }
 
     }).catch(function(error) {
       console.log(error);
@@ -97,8 +94,8 @@ document.querySelector('#collaborate').onclick = function () {
       console.log(Array.from(awareness.getStates().values()));
     });
 
-    const rand = Math.floor(Math.random() * 7);
-    const color = ['#000000', '#FF0000', '#FFFF00', '#00FF00',
+    const rand = Math.floor(Math.random() * 6);
+    const color = ['#000000', '#FF0000', '#00FF00',
       '#00FFFF', '#0000FF', '#FF00FF'];
   
     awareness.setLocalStateField('user', {
