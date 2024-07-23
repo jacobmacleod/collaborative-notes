@@ -7,7 +7,6 @@ import { SpeechToText } from 'watson-speech'
 import DOUsername from 'do_username'
 
 const notepad = document.querySelector('#notepad');
-if (!notepad) throw new Error('missing Text area?');
 
 Quill.register('modules/cursors', QuillCursors);
 
@@ -27,7 +26,31 @@ const quill = new Quill(notepad, {
   theme: 'snow' 
 });
 
+var doc = new Y.Doc();
 
+const provider = new WebrtcProvider(roomName, doc, {
+  signaling: ['https://collaborative-notes-server.xyz']
+});
+
+var awareness = provider.awareness;
+
+awareness.on('change', changes => {
+  console.log(Array.from(awareness.getStates().values()));
+});
+
+var rand = Math.floor(Math.random() * 6);
+const color = ['#000000', '#FF0000', '#00FF00',
+  '#00FFFF', '#0000FF', '#FF00FF'];
+
+awareness.setLocalStateField('user', {
+  name: DOUsername.generate(20),
+  color: color[rand]
+});
+  
+
+var yText = doc.getText('quill');
+
+var binding = new QuillBinding(yText, quill, awareness);
 
 
 document.querySelector('#download').onclick = function ()  {
@@ -81,31 +104,36 @@ document.querySelector('#collaborate').onclick = function () {
 
   var roomName = window.prompt("Please enter the room name: ");
 
+  roomName = roomName.toLowerCase();
+  roomName = roomName.trim();
+
   if (roomName != null) {
-    const doc = new Y.Doc();
+    if (provider.roomName !== roomName) {
 
-    const provider = new WebrtcProvider(roomName, doc, {
-      signaling: ['https://collaborative-notes-server.xyz']
-    });
-
-    const awareness = provider.awareness;
-
-    awareness.on('change', changes => {
-      console.log(Array.from(awareness.getStates().values()));
-    });
-
-    const rand = Math.floor(Math.random() * 6);
-    const color = ['#000000', '#FF0000', '#00FF00',
-      '#00FFFF', '#0000FF', '#FF00FF'];
-  
-    awareness.setLocalStateField('user', {
-      name: DOUsername.generate(20),
-      color: color[rand]
-    });
-  
-
-    const yText = doc.getText('quill');
-
-    const binding = new QuillBinding(yText, quill, awareness);
+      doc = new Y.Doc();
+      
+      provider = new WebrtcProvider(roomName, doc, {
+        signaling: ['https://collaborative-notes-server.xyz']
+      });
+      
+      awareness = provider.awareness;
+      
+      awareness.on('change', changes => {
+        console.log(Array.from(awareness.getStates().values()));
+      });
+      
+      rand = Math.floor(Math.random() * 6);
+      
+      awareness.setLocalStateField('user', {
+        name: DOUsername.generate(20),
+        color: color[rand]
+      });
+      
+      
+      yText = doc.getText('quill');
+      
+      binding.destroy();
+      binding = new QuillBinding(yText, quill, awareness);
+    }
   }
 };
