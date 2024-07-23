@@ -26,31 +26,8 @@ const quill = new Quill(notepad, {
   theme: 'snow' 
 });
 
-var doc = new Y.Doc();
-
-const provider = new WebrtcProvider('collaborative-notes-room', doc, {
-  signaling: ['https://collaborative-notes-server.xyz']
-});
-
-var awareness = provider.awareness;
-
-awareness.on('change', changes => {
-  console.log(Array.from(awareness.getStates().values()));
-});
-
-var rand = Math.floor(Math.random() * 6);
-const color = ['#000000', '#FF0000', '#00FF00',
-  '#00FFFF', '#0000FF', '#FF00FF'];
-
-awareness.setLocalStateField('user', {
-  name: DOUsername.generate(20),
-  color: color[rand]
-});
-  
-
-var yText = doc.getText('quill');
-
-var binding = new QuillBinding(yText, quill, awareness);
+var binding = null;
+var provider = null;
 
 
 document.querySelector('#download').onclick = function ()  {
@@ -98,4 +75,51 @@ document.querySelector('#transcribe').onclick = function () {
     }).catch(function(error) {
       console.log(error);
     });
+};
+
+document.querySelector('#collaborate').onclick = function () {
+
+  var roomName = window.prompt("Please enter the room name: ");
+
+  if (roomName != null) {
+
+    roomName = roomName.toLowerCase();
+    roomName = roomName.trim();
+    if (!provider || roomName !== provider.roomName) {
+
+      if (binding) {
+        binding.destroy();
+      }
+      if (provider) {
+        provider.disconnect();
+      }
+      const doc = new Y.Doc();
+      provider = new WebrtcProvider(roomName, doc, {
+        signaling: ['https://collaborative-notes-server.xyz'],
+        peerOpts: {
+          myPeerConnection
+        }
+      });
+
+      const awareness = provider.awareness;
+
+      awareness.on('change', changes => {
+        console.log(Array.from(awareness.getStates().values()));
+      });
+
+      const rand = Math.floor(Math.random() * 6);
+      const color = ['#000000', '#FF0000', '#00FF00',
+        '#00FFFF', '#0000FF', '#FF00FF'];
+
+      awareness.setLocalStateField('user', {
+        name: DOUsername.generate(20),
+        color: color[rand]
+      });
+
+
+      const yText = doc.getText('quill');
+
+      binding = new QuillBinding(yText, quill, awareness);
+    }
+  }
 };
