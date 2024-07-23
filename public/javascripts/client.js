@@ -82,11 +82,8 @@ document.querySelector('#collaborate').onclick = function () {
   var roomName = window.prompt("Please enter the room name: ");
 
   if (roomName != null) {
-    
     const doc = new Y.Doc();
 
-    roomName = roomName.toLowerCase();
-    roomName = roomName.trim();
     const provider = new WebrtcProvider(roomName, doc, {
       signaling: ['https://collaborative-notes-server.xyz']
     });
