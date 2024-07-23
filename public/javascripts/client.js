@@ -96,9 +96,6 @@ document.querySelector('#collaborate').onclick = function () {
       const doc = new Y.Doc();
       provider = new WebrtcProvider(roomName, doc, {
         signaling: ['https://collaborative-notes-server.xyz'],
-        peerOpts: {
-          myPeerConnection
-        }
       });
 
       const awareness = provider.awareness;
