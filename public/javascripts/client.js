@@ -28,7 +28,7 @@ const quill = new Quill(notepad, {
 
 var doc = new Y.Doc();
 
-const provider = new WebrtcProvider(roomName, doc, {
+const provider = new WebrtcProvider('collaborative-notes-room', doc, {
   signaling: ['https://collaborative-notes-server.xyz']
 });
 
@@ -98,42 +98,4 @@ document.querySelector('#transcribe').onclick = function () {
     }).catch(function(error) {
       console.log(error);
     });
-};
-
-document.querySelector('#collaborate').onclick = function () {
-
-  var roomName = window.prompt("Please enter the room name: ");
-
-  roomName = roomName.toLowerCase();
-  roomName = roomName.trim();
-
-  if (roomName != null) {
-    if (provider.roomName !== roomName) {
-
-      doc = new Y.Doc();
-      
-      provider = new WebrtcProvider(roomName, doc, {
-        signaling: ['https://collaborative-notes-server.xyz']
-      });
-      
-      awareness = provider.awareness;
-      
-      awareness.on('change', changes => {
-        console.log(Array.from(awareness.getStates().values()));
-      });
-      
-      rand = Math.floor(Math.random() * 6);
-      
-      awareness.setLocalStateField('user', {
-        name: DOUsername.generate(20),
-        color: color[rand]
-      });
-      
-      
-      yText = doc.getText('quill');
-      
-      binding.destroy();
-      binding = new QuillBinding(yText, quill, awareness);
-    }
-  }
 };
