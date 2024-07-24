@@ -28,7 +28,7 @@ const quill = new Quill(notepad, {
 
 var binding = null;
 var provider = null;
-
+var doc = null;
 
 document.querySelector('#download').onclick = function ()  {
     var filename = window.prompt("Please enter the file name: ", "filename.html");
@@ -90,33 +90,20 @@ document.querySelector('#collaborate').onclick = function () {
       if (binding) {
         binding.destroy();
       }
+      if (doc) {
+        doc.destroy();
+      }
       if (provider) {
         provider.disconnect();
       }
-      const doc = new Y.Doc();
+      doc = new Y.Doc();
       provider = new WebrtcProvider(roomName, doc, {
         signaling: ['https://collaborative-notes-server.xyz'],
       });
 
-      const awareness = provider.awareness;
-
-      awareness.on('change', changes => {
-        console.log(Array.from(awareness.getStates().values()));
-      });
-
-      const rand = Math.floor(Math.random() * 6);
-      const color = ['#000000', '#FF0000', '#00FF00',
-        '#00FFFF', '#0000FF', '#FF00FF'];
-
-      awareness.setLocalStateField('user', {
-        name: DOUsername.generate(20),
-        color: color[rand]
-      });
-
-
       const yText = doc.getText('quill');
 
-      binding = new QuillBinding(yText, quill, awareness);
+      binding = new QuillBinding(yText, quill);
     }
   }
 };

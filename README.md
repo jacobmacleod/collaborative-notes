@@ -7,11 +7,13 @@ Including a simple user interface and focusing on note-taking
 
 ## Demo Video
 
-[video on YouTube](https://youtu.be/OxHO3wQzqK4)
+[video on YouTube](https://youtu.be/E5NG4cXcsCI)
 
 ## Usage
 
-Type in the editor and the editor should update on all instances of [collaborative-notes.com](https://collaborative-notes.com/)
+To connect the editor to other users of the editor, click the Join Room button. Enter the name of the room you want to join to join that room. Type in the editor and the editor should update on all instances of [collaborative-notes.com](https://collaborative-notes.com/) with the same room name. 
+
+If there is text in the editor before a room is joined, it will disappear when a room is joined.
 
 Click the Download File button to download an HTML file of the text in the editor.
 
