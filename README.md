@@ -11,7 +11,7 @@ Including a simple user interface and focusing on note-taking
 
 ## Usage
 
-To connect the editor to other users of the editor, click the Join Room button. Enter the name of the room you want to join to join that room. Type in the editor and the editor should update on all instances of [collaborative-notes.com](https://collaborative-notes.com/) with the same room name. 
+To connect the editor to other users of the editor, click the Join Room button. Enter the name of the room you want to join to join that room. Room names are not case sensitive. Type in the editor and the editor should update on all instances of [collaborative-notes.com](https://collaborative-notes.com/) with the same room name. 
 
 If there is text in the editor before a room is joined, it will disappear when a room is joined.
 

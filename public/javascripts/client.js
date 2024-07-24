@@ -4,7 +4,6 @@ import Quill from 'quill'
 import QuillCursors from 'quill-cursors'
 import { QuillBinding } from 'y-quill'
 import { SpeechToText } from 'watson-speech'
-import DOUsername from 'do_username'
 
 const notepad = document.querySelector('#notepad');
 
