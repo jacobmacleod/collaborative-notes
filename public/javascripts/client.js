@@ -15,7 +15,10 @@ const quill = new Quill(notepad, {
     toolbar: [
       [{ header: [1, 2, false] }],
       ['bold', 'italic', 'underline'],
-      ['image', 'code-block']
+      ['code-block'],
+      [{ 'size': ['small', false, 'large', 'huge'] }],
+      [{ 'color': [] }, { 'background': [] }],
+      [{ 'font': [] }]
     ],
     history: {
       userOnly: true
