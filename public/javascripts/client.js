@@ -72,6 +72,9 @@ document.querySelector('#transcribe').onclick = function () {
 
       document.querySelector('#stop').onclick = function() {
         stream.stop();
+        var content = document.getElementById('output').innerHTML;
+        var index = quill.getSelection(true).index;
+        quill.insertText(index, content);
       }
 
     }).catch(function(error) {
@@ -99,13 +102,14 @@ document.querySelector('#collaborate').onclick = function () {
         provider.disconnect();
       }
       doc = new Y.Doc();
+
+      var text = doc.getText('quill');
+
       provider = new WebrtcProvider(roomName, doc, {
-        signaling: ['https://collaborative-notes-server.xyz'],
+        signaling: ['https://collaborative-notes-server.xyz']
       });
-
-      const yText = doc.getText('quill');
-
-      binding = new QuillBinding(yText, quill);
+      
+      binding = new QuillBinding(text, quill);
     }
   }
 };
