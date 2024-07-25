@@ -7,7 +7,7 @@ Including a simple user interface and focusing on note-taking
 
 ## Demo Video
 
-[video on YouTube](https://youtu.be/E5NG4cXcsCI)
+[video on YouTube](https://youtu.be/oQXPnNfb-1o)
 
 ## Usage
 
@@ -60,7 +60,7 @@ to
         }
       });
 
-Based on `.env.example`, create `.env` with credentials
+Based on `.env.example`, create `.env` with IBM Watson Speech to Text credentials
 
 In `bin/www`, change the arguments of readFileSync in
 
