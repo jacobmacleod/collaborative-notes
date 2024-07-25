@@ -7,7 +7,7 @@ Including a simple user interface and focusing on note-taking
 
 ## Demo Video
 
-[video on YouTube](https://youtu.be/oQXPnNfb-1o)
+[video on YouTube](https://youtu.be/ZZDZGxQCdqk)
 
 ## Usage
 
@@ -17,9 +17,9 @@ If there is text in the editor before a room is joined, it will disappear when a
 
 Click the Download File button to download an HTML file of the text in the editor.
 
-Click the Transcribe button to start Speech-to-Text. The transcription appears under the line "Speech-to-Text Output". This transcription output is not connected to the editor and does not update for other peers. 
+Click the Transcribe button to start Speech-to-Text. The transcription appears under the line "Speech-to-Text Output".
 
-Stop Transcription button stops the transcription service. 
+Stop Transcription button stops the transcription service. When the transcription is stopped, the results of the transcription will appear in the editor and update the editor for other users.
 
 ## Setup
 
