@@ -1,7 +1,5 @@
 # Collaborative Notes
 
-source code for [collaborative-notes.com](https://collaborative-notes.com/)
-
 Collaborative Notes:  A note-taking and sharing app for students and coworkers 
 Including a simple user interface and focusing on note-taking
 
@@ -37,11 +35,11 @@ Stop Transcription button stops the transcription service. When the transcriptio
 
 Once you have those, setting this up on the web requires changing some of the code. In `public/javascripts/client.js`, change
 
-    'https://collaborative-notes-server.xyz'
+    'https://name-of-signaling-server'
 
 in the line
 
-    signaling: ['https://collaborative-notes-server.xyz']
+    signaling: ['https://name-of-signaling-server']
 
 to the location of your y-webrtc server. 
 

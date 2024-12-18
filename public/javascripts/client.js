@@ -106,7 +106,7 @@ document.querySelector('#collaborate').onclick = function () {
       var text = doc.getText('quill');
 
       provider = new WebrtcProvider(roomName, doc, {
-        signaling: ['https://collaborative-notes-server.xyz']
+        signaling: ['https://name-of-signaling-server']
       });
       
       binding = new QuillBinding(text, quill);
